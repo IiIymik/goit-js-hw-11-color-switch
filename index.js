@@ -7,41 +7,41 @@ const colors = [
   '#795548',
 ];
 const DELAY = 1000;
+let interval = null;
 
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 const refs = {
-    starBtn: document.querySelector('[data-action="start"]'),
-    stopBtn: document.querySelector('[data-action="stop"]'),
-    bodyStyle: document.querySelector('body'),
+    starBtnEl: document.querySelector('[data-action="start"]'),
+    stopBtnEl: document.querySelector('[data-action="stop"]'),
+    bodyEl: document.querySelector('body'),
 };
 
-refs.starBtn.addEventListener('click', (e) => {
-    e.target.disabled = true;
-    randomColor()
-});
+refs.starBtnEl.addEventListener('click', startBtn);
 
-refs.stopBtn.addEventListener('click', (e) => {
-    refs.starBtn.disabled = false;
+function startBtn() {
+     refs.starBtnEl.disabled = true;
+    interval = setInterval(randomColor, DELAY);
+};
+
+refs.stopBtnEl.addEventListener('click', stopBtn);
+
+function stopBtn() {
+    refs.starBtnEl.disabled = false;
     clearInterval(interval);
-
-} )
+};
 
 function setBodyColor(colors) {
-    refs.bodyStyle.style.backgroundColor = colors;
-    
+    refs.bodyEl.style.backgroundColor = colors;
 };
-
-const interval = setInterval(randomColor, DELAY, DELAY);
 
 function randomColor() {
     let randomNum = randomIntegerFromInterval(1, 6);
-    let newColor = colors.map((col, index) => {
-        if (randomNum === index) {
+    return colors.map((col, i) => {
+        if (randomNum === i) {
             setBodyColor(col);
         }
     })
-    return newColor;
-}
+};
