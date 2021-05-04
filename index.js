@@ -38,10 +38,6 @@ function setBodyColor(colors) {
 };
 
 function randomColor() {
-    let randomNum = randomIntegerFromInterval(1, 6);
-    return colors.map((col, i) => {
-        if (randomNum === i) {
-            setBodyColor(col);
-        }
-    })
+    let randomNum = randomIntegerFromInterval(1, colors.length -1);
+    setBodyColor(colors[randomNum]);    
 };
